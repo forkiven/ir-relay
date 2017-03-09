@@ -8,7 +8,7 @@ def main():
 	# get weaver address
 	client.TCP_IP = weaver.fetchProxyAddress()
 	# Try to connect to server
-	client.socket.connect((client.TCP_IP, TCP_PORT))
+	client.socket.connect((client.TCP_IP, client.TCP_PORT))
 	# Close socket on exit
 	def closeSocket():
 		client.socket.close()
