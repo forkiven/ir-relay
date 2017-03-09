@@ -62,6 +62,7 @@ while True:
 	
 	binaryString = ""
 	gaps = filter(lambda x: x[0] == 1, command)
+	print(gaps)
 	for gap in gaps:
 		if gap[1] > 2000:
 			break
