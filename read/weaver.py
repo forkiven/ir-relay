@@ -100,4 +100,8 @@ def fetchProxyAddress():
     return proxyConnect(login())
 
 if __name__ == "__main__":
-	print(fetchProxyAddress())
+    address = fetchProxyAddress().split('://')[1].split(':')
+    url = address[0]
+    port = address[1]
+    print("address: " + url)
+    print("port: " + port)
