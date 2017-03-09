@@ -32,7 +32,7 @@ while True:
             data = connection.recv(32)
             if data:
                 print("Blast IR: " + data)
-                #ir.send_code(data)
+                ir.send_code(data)
             else:
                 print >>sys.stderr, 'no more data from', client_address
                 break
