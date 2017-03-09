@@ -9,7 +9,7 @@ def main():
 	# when started
 	start_time = time.time()
 
-	print('fetching proxy address...')
+	print('Fetching proxy address...')
 	# get weaver address
 	proxyAddress = weaver.fetchProxyAddress().split('://')[1].split(':')
 	TCP_IP = proxyAddress[0]
@@ -17,6 +17,7 @@ def main():
 	# Try to connect to server
 	print('Connecting to socket @ ' + proxyAddress[0] + ':' + proxyAddress[1])
 	client.socket.connect((TCP_IP, TCP_PORT))
+	print('Waiting for signal...')
 	# Close socket on exit
 	def closeSocket():
 		client.socket.close()
@@ -35,10 +36,10 @@ def main():
 			client.socket.send(binaryCode)
 
 	# Close socket
-	print('hit timeout...closing socket....')
+	print('Timeout! Cleaning up and restarting...')
 	closeSocket()
 	# delay to let socket terminate
-	time.sleep(3)
+	time.sleep(180)
 	# restart
 	main()
 
