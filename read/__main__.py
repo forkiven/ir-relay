@@ -2,6 +2,9 @@ import weaver
 import client
 import reader
 import atexit
+import time
+
+start_time = time.time()
 
 def main():
 
@@ -17,10 +20,19 @@ def main():
 	atexit.register(closeSocket)
 	# Start reading signals
 	while True:
+
+		# if program has been running for more than 25 mins
+		if int(time.time() - start_time) > 60:
+			break
+
 		binaryCode = reader.read()
 		if binaryCode:
 			# Send to server
 			client.socket.send(binaryCode)
+
+	# Close socket
+	closeSocket()
+	main()
 
 if __name__ == "__main__":
 	main()
