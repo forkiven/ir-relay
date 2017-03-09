@@ -265,9 +265,9 @@ class IR():
 # Provide the IR code to the send_code() method.
 # An example is given below.
 if __name__ == "__main__":
-    # protocol = "NEC"
-    # gpio_pin = 18
-    # protocol_config = dict()
-    # ir = IR(gpio_pin, protocol, protocol_config)
-    # ir.send_code("11000000001100")
+    protocol = "NEC"
+    gpio_pin = 18
+    protocol_config = dict()
+    ir = IR(gpio_pin, protocol, protocol_config)
+    ir.send_code("11000000001100")
     print("Exiting IR")
