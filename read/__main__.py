@@ -14,9 +14,7 @@ def main():
 	TCP_IP = proxyAddress[0]
 	TCP_PORT = int(proxyAddress[1])
 	# Try to connect to server
-	print('Connecting socket...')
-	print('url: ' + proxyAddress[0])
-	print('port: ' + proxyAddress[1])
+	print('Connecting to socket @ proxyAddress[0]:proxyAddress[1]')
 	client.socket.connect((TCP_IP, TCP_PORT))
 	# Close socket on exit
 	def closeSocket():
@@ -26,7 +24,7 @@ def main():
 	while True:
 
 		# if program has been running for more than 25 mins
-		if int(time.time() - start_time) > 60:
+		if int(time.time() - start_time) > 30:
 			break
 
 		binaryCode = reader.read()
@@ -38,6 +36,7 @@ def main():
 	# Close socket
 	print('hit timeout...closing socket....')
 	closeSocket()
+	sleep(3)
 	main()
 
 if __name__ == "__main__":
