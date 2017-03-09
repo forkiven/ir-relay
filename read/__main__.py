@@ -1,8 +1,8 @@
 import weaver
-import client
 import reader
 import atexit
 import time
+import socket
 
 def main():
 
@@ -16,12 +16,13 @@ def main():
 	TCP_PORT = int(proxyAddress[1])
 	# Try to connect to server
 	print('Connecting to socket @ ' + proxyAddress[0] + ':' + proxyAddress[1])
-	client.socket.connect((TCP_IP, TCP_PORT))
+	s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+	s.connect((TCP_IP, TCP_PORT))
 	print('Waiting for signal...')
 	# Close socket on exit
-	#def closeSocket():
-		#client.socket.close()
-	#atexit.register(closeSocket)
+	def closeSocket():
+		s.close()
+	atexit.register(closeSocket)
 	# Start reading signals
 	while True:
 
@@ -33,11 +34,11 @@ def main():
 		if binaryCode:
 			# Send to server
 			print('sent: ' + binaryCode)
-			client.socket.send(binaryCode)
+			s.send(binaryCode)
 
 	# Close socket
 	print('Timeout! Cleaning up and restarting...')
-	client.socket.close()
+	closeSocket()
 	# delay to let socket terminate
 	# time.sleep(180)
 	# restart
