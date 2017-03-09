@@ -6,7 +6,7 @@ import slinger
 slinger.protocol = "NEC"
 slinger.gpio_pin = 18
 protocol_config = dict()        
-#ir = slinger.IR(slinger.gpio_pin, slinger.protocol, protocol_config)
+ir = slinger.IR(slinger.gpio_pin, slinger.protocol, protocol_config)
 
 # Create a TCP/IP socket
 sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
