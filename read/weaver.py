@@ -98,3 +98,6 @@ def proxyConnect(token):
 
 def fetchProxyAddress():
     return proxyConnect(login())
+
+if __name__ == "__main__":
+	print(fetchProxyAddress())
