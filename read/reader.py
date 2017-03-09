@@ -13,6 +13,7 @@ GPIO.setup(INPUT_WIRE, GPIO.IN)
 
 while True:
 	value = 1
+
 	# Loop until we read a 0
 	while value:
 		value = GPIO.input(INPUT_WIRE)
@@ -52,9 +53,9 @@ while True:
 		previousVal = value
 		value = GPIO.input(INPUT_WIRE)
 	
-	print "----------Start----------"
-	for (val, pulse) in command:
-		print val, pulse
+	#print "----------Start----------"
+	#for (val, pulse) in command:
+		#print val, pulse
 
 	# - Only care about the gaps (when pulse is a 1) so we filter our command array. 
 	# - map (perform iterator function) so that if gap is greater than 1000, assume 1, else 0.
