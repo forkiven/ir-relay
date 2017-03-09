@@ -4,9 +4,10 @@ import reader
 import atexit
 import time
 
-start_time = time.time()
-
 def main():
+
+	# when started
+	start_time = time.time()
 
 	print('fetching proxy address...')
 	# get weaver address
@@ -14,7 +15,7 @@ def main():
 	TCP_IP = proxyAddress[0]
 	TCP_PORT = int(proxyAddress[1])
 	# Try to connect to server
-	print('Connecting to socket @ proxyAddress[0]:proxyAddress[1]')
+	print('Connecting to socket @ ' + proxyAddress[0] + ':' + proxyAddress[1])
 	client.socket.connect((TCP_IP, TCP_PORT))
 	# Close socket on exit
 	def closeSocket():
@@ -36,8 +37,9 @@ def main():
 	# Close socket
 	print('hit timeout...closing socket....')
 	closeSocket()
+	# delay to let socket terminate
 	sleep(3)
-	start_time = time.time()
+	# restart
 	main()
 
 if __name__ == "__main__":
