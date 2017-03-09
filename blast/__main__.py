@@ -29,13 +29,10 @@ while True:
 
         # Receive the data in small chunks and retransmit it
         while True:
-            data = connection.recv(4096)
+            data = connection.recv(32)
             if data:
-                print(data)
-                #ir.send_code(data)
                 print("Blast IR: " + data)
-                # Send data back
-                #connection.sendall(data)
+                #ir.send_code(data)
             else:
                 print >>sys.stderr, 'no more data from', client_address
                 break
