@@ -8,11 +8,15 @@ start_time = time.time()
 
 def main():
 
+	print('fetching proxy address...')
 	# get weaver address
 	proxyAddress = weaver.fetchProxyAddress().split('://')[1].split(':')
 	TCP_IP = proxyAddress[0]
 	TCP_PORT = int(proxyAddress[1])
 	# Try to connect to server
+	print('Connecting socket...')
+	print('url: ' + proxyAddress[0])
+	print('port: ' + proxyAddress[1])
 	client.socket.connect((TCP_IP, TCP_PORT))
 	# Close socket on exit
 	def closeSocket():
@@ -28,9 +32,11 @@ def main():
 		binaryCode = reader.read()
 		if binaryCode:
 			# Send to server
+			print('sent: ' + binaryCode)
 			client.socket.send(binaryCode)
 
 	# Close socket
+	print('hit timeout...closing socket....')
 	closeSocket()
 	main()
 
