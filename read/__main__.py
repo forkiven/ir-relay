@@ -25,7 +25,7 @@ def main():
 	while True:
 
 		# if program has been running for more than 25 mins
-		if int(time.time() - start_time) > 30:
+		if int(time.time() - start_time) > 60:
 			break
 
 		binaryCode = reader.read()
@@ -38,7 +38,7 @@ def main():
 	print('hit timeout...closing socket....')
 	closeSocket()
 	# delay to let socket terminate
-	sleep(3)
+	time.sleep(3)
 	# restart
 	main()
 
