@@ -10,10 +10,10 @@ TCP_PORT = 6666
 # Buffer (amount of bytes)
 MESSAGE = "Hello, World!"
 
-s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-s.connect((TCP_IP, TCP_PORT))
+socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+# s.connect((TCP_IP, TCP_PORT))
 
-messagesSent = 0
+# messagesSent = 0
 
 while True:
   s.send(MESSAGE)

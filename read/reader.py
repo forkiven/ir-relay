@@ -11,7 +11,7 @@ INPUT_WIRE = 12
 GPIO.setmode(GPIO.BOARD)
 GPIO.setup(INPUT_WIRE, GPIO.IN)
 
-while True:
+def read():
 	value = 1
 
 	# Loop until we read a 0
@@ -71,11 +71,6 @@ while True:
 			if gap[1] < 2000:
 				binaryString += "1"
 
-	# binaryString = "".join(map(lambda x: "1" if x[1] > 1000 else "0", filter(lambda x: x[0] == 1, command)))
-
+	# Return our binary code if we have one (minus whitespace)
 	if binaryString.strip():
-		print(binaryString)
-
-	#print "-----------End-----------\n"
-
-	#print "Size of array is " + str(len(command))
+		return(binaryString)
