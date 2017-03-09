@@ -37,6 +37,7 @@ def main():
 	print('hit timeout...closing socket....')
 	closeSocket()
 	sleep(3)
+	start_time = time.time()
 	main()
 
 if __name__ == "__main__":
