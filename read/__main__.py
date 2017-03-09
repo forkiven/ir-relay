@@ -6,7 +6,6 @@ import atexit
 def main():
 
 	# get weaver address
-	client.TCP_IP = weaver.fetchProxyAddress()
 	proxyAddress = weaver.fetchProxyAddress().split('://')[1].split(':')
 	TCP_IP = proxyAddress[0]
 	TCP_PORT = int(proxyAddress[1])
