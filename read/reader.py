@@ -73,7 +73,8 @@ while True:
 
 	# binaryString = "".join(map(lambda x: "1" if x[1] > 1000 else "0", filter(lambda x: x[0] == 1, command)))
 
-	print(binaryString)
+	if binaryString:
+		print(binaryString)
 
 	#print "-----------End-----------\n"
 
