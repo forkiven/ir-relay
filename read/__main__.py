@@ -37,7 +37,7 @@ def main():
 
 	# Close socket
 	print('Timeout! Cleaning up and restarting...')
-	closeSocket()
+	# closeSocket()
 	# delay to let socket terminate
 	# time.sleep(180)
 	# restart
