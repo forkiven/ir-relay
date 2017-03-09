@@ -75,6 +75,6 @@ while True:
 
 	print(binaryString)
 
-	print "-----------End-----------\n"
+	#print "-----------End-----------\n"
 
-	print "Size of array is " + str(len(command))
+	#print "Size of array is " + str(len(command))
