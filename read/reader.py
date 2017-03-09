@@ -59,7 +59,19 @@ while True:
 	# - Only care about the gaps (when pulse is a 1) so we filter our command array. 
 	# - map (perform iterator function) so that if gap is greater than 1000, assume 1, else 0.
 	# - Turn array into string using join()
-	binaryString = "".join(map(lambda x: "1" if x[1] > 1000 else "0", filter(lambda x: x[0] == 1, command)))
+	
+	binaryString = ""
+	gaps = filter(lambda x: x[0] == 1, command)
+	for gap in gaps:
+		if gap[1] > 2000:
+			break
+		if gap[1] > 1000:
+			binaryString += "1"
+		else:
+			binaryString += "0"
+
+
+	# binaryString = "".join(map(lambda x: "1" if x[1] > 1000 else "0", filter(lambda x: x[0] == 1, command)))
 
 	print(binaryString)
 
