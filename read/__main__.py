@@ -19,9 +19,9 @@ def main():
 	client.socket.connect((TCP_IP, TCP_PORT))
 	print('Waiting for signal...')
 	# Close socket on exit
-	def closeSocket():
-		client.socket.close()
-	atexit.register(closeSocket)
+	#def closeSocket():
+		#client.socket.close()
+	#atexit.register(closeSocket)
 	# Start reading signals
 	while True:
 
@@ -39,7 +39,7 @@ def main():
 	print('Timeout! Cleaning up and restarting...')
 	closeSocket()
 	# delay to let socket terminate
-	time.sleep(180)
+	# time.sleep(180)
 	# restart
 	main()
 
