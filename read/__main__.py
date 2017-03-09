@@ -18,7 +18,7 @@ def main():
 		binaryCode = reader.read()
 		if binaryCode:
 			# Send to server
-			client.send(binaryCode)
+			client.socket.send(binaryCode)
 
 if __name__ == "__main__":
 	main()
