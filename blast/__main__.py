@@ -4,7 +4,7 @@ import slinger
 
 # Setup slinger
 slinger.protocol = "NEC"
-slinger.gpio_pin = 18
+slinger.gpio_pin = 12
 protocol_config = dict()        
 ir = slinger.IR(slinger.gpio_pin, slinger.protocol, protocol_config)
 
