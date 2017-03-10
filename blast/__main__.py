@@ -35,9 +35,9 @@ while True:
             if data:
                 print("Blast IR: " + data)
                 if blasterReady:
-                    blasterReady = false
+                    blasterReady = False
                     ir.send_code(data)
-                    blasterReady = true
+                    blasterReady = True
             else:
                 print >>sys.stderr, 'no more data from', client_address
                 break
