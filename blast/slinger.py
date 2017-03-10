@@ -109,13 +109,13 @@ class NEC():
     # Generate zero or one in NEC protocol
     # Zero is represented by a pulse and a gap of the same length
     def zero(self):
-        self.wave_generator.one(self.one_pulse_duration)
-        self.wave_generator.zero(self.zero_pulse_duration)
+        self.wave_generator.one(self.zero_pulse_duration)
+        self.wave_generator.zero(self.zero_gap_duration)
 
     # One is represented by a pulse and a gap three times longer than the pulse
     def one(self):
-        self.wave_generator.one(self.zero_pulse_duration)
-        self.wave_generator.zero(self.zero_gap_duration)
+        self.wave_generator.one(self.one_pulse_duration)
+        self.wave_generator.zero(self.one_gap_duration)
 
 # RC-5 protocol class
 # Note: start bits are not implemented here due to inconsistency between manufacturers.
@@ -154,12 +154,12 @@ class RC5():
     # Generate zero or one in RC-5 protocol
     # Zero is represented by pulse-then-low signal
     def zero(self):
-        self.wave_generator.one(self.one_duration)
+        self.wave_generator.one(self.zero_duration)
         self.wave_generator.zero(self.zero_duration)
 
     # One is represented by low-then-pulse signal
     def one(self):
-        self.wave_generator.zero(self.zero_duration)
+        self.wave_generator.zero(self.one_duration)
         self.wave_generator.one(self.one_duration)
 
 # RAW IR ones and zeroes. Specify length for one and zero and simply bitbang the GPIO.
@@ -257,8 +257,8 @@ class IR():
             time.sleep(0.1)
         print("Deleting wave")
         self.pigpio.gpioWaveDelete(wave_id)
-        # print("Terminating pigpio")
-        # self.pigpio.gpioTerminate()
+        #print("Terminating pigpio")
+        #self.pigpio.gpioTerminate()
 
 # Simply define the GPIO pin, protocol (NEC, RC-5 or RAW) and
 # override the protocol defaults with the dictionary if required.
@@ -266,8 +266,8 @@ class IR():
 # An example is given below.
 if __name__ == "__main__":
     protocol = "NEC"
-    gpio_pin = 18
+    gpio_pin = 23
     protocol_config = dict()
     ir = IR(gpio_pin, protocol, protocol_config)
-    ir.send_code("11000000001100")
+    ir.send_code("01001111010110000011000011001111")
     print("Exiting IR")
