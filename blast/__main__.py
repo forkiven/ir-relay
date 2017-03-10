@@ -19,6 +19,8 @@ sock.bind(server_address)
 # Listen for incoming connections
 sock.listen(1)
 
+blasterReady = true
+
 while True:
     # Wait for a connection
     print >>sys.stderr, 'waiting for a connection'
@@ -32,7 +34,10 @@ while True:
             data = connection.recv(32)
             if data:
                 print("Blast IR: " + data)
-                ir.send_code(data)
+                if blasterReady:
+                    blasterReady = false
+                    ir.send_code(data)
+                    blasterReady = true
             else:
                 print >>sys.stderr, 'no more data from', client_address
                 break
