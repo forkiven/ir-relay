@@ -74,3 +74,6 @@ def read():
 	# Return our binary code if we have one (minus whitespace)
 	if binaryString.strip():
 		return(binaryString)
+
+	if __name__ == "__main__":
+		print(binaryString)

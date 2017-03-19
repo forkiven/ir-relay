@@ -257,8 +257,8 @@ class IR():
             time.sleep(0.1)
         print("Deleting wave")
         self.pigpio.gpioWaveDelete(wave_id)
-        #print("Terminating pigpio")
-        #self.pigpio.gpioTerminate()
+        print("Terminating pigpio")
+        self.pigpio.gpioTerminate()
 
 # Simply define the GPIO pin, protocol (NEC, RC-5 or RAW) and
 # override the protocol defaults with the dictionary if required.
