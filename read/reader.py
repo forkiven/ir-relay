@@ -75,5 +75,5 @@ def read():
 	if binaryString.strip():
 		return(binaryString)
 
-	if __name__ == "__main__":
-		print(binaryString)
+if __name__ == "__main__":
+	print(read())
