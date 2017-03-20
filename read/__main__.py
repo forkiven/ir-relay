@@ -27,7 +27,7 @@ def main():
 	while True:
 
 		# if program has been running for more than 25 mins
-		if int(time.time() - start_time) > 60:
+		if int(time.time() - start_time) > 1500:
 			break
 
 		binaryCode = reader.read()
