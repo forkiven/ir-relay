@@ -23,7 +23,7 @@ userName = "mail@wumike.com"
 password = "mikewu1209" 
 
 # Weaved Device UID (irite-blaster)
-UID = "80:00:00:05:46:02:BE:53"
+UID = "80:00:00:05:46:02:D7:8B"
 
 # HTTP settings
 httplib2.debuglevel     = 0

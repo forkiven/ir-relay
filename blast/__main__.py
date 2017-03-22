@@ -11,7 +11,7 @@ protocol_config = dict()
 sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
 # Bind the socket to the port
-server_address = ('localhost', 6666)
+server_address = ("", 6666)
 print >>sys.stderr, 'starting up on %s port %s' % server_address
 sock.bind(server_address)
 
