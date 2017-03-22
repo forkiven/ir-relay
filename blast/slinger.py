@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/python
 # Python IR transmitter
 # Requires pigpio library
 # Supports NEC, RC-5 and raw IR.
