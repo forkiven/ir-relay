@@ -1,3 +1,5 @@
+#!/usr/bin/python
+
 import weaver
 import reader
 import atexit
