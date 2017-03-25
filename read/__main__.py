@@ -13,6 +13,8 @@ def main():
 	GPIO.setmode(GPIO.BOARD)
 	# BOARD 16 = BCM 23
 	GPIO.setup(16, GPIO.OUT)
+	# Start with LED OFF
+	GPIO.output(16, GPIO.LOW)
 
 	# when started
 	start_time = time.time()
@@ -44,8 +46,11 @@ def main():
 		if binaryCode:
 			# Flash LED
 			GPIO.output(16, GPIO.LOW)
+			time.sleep(0.1)
 			GPIO.output(16, GPIO.HIGH)
+			time.sleep(0.1)
 			GPIO.output(16, GPIO.LOW)
+			time.sleep(0.1)
 			# Send to server
 			print('sent: ' + binaryCode)
 			s.send(binaryCode)
