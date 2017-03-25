@@ -5,8 +5,14 @@ import reader
 import atexit
 import time
 import socket
+import RPi.GPIO as GPIO
 
 def main():
+
+	# Initialize GPIO for LED
+	GPIO.setmode(GPIO.BOARD)
+	# BOARD 16 = BCM 23
+	GPIO.setup(16, GPIO.OUT)
 
 	# when started
 	start_time = time.time()
@@ -21,6 +27,8 @@ def main():
 	s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 	s.connect((TCP_IP, TCP_PORT))
 	print('Waiting for signal...')
+	# Turn LED ON
+	GPIO.output(16, GPIO.HIGH)
 	# Close socket on exit
 	def closeSocket():
 		s.close()
@@ -34,9 +42,15 @@ def main():
 
 		binaryCode = reader.read()
 		if binaryCode:
+			# Flash LED
+			GPIO.output(16, GPIO.LOW)
+			GPIO.output(16, GPIO.HIGH)
+			GPIO.output(16, GPIO.LOW)
 			# Send to server
 			print('sent: ' + binaryCode)
 			s.send(binaryCode)
+			# Turn LED back on - ready for new signal
+			GPIO.output(16, GPIO.HIGH)
 
 	# Close socket
 	print('Timeout! Cleaning up and restarting...')
