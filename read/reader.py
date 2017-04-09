@@ -70,19 +70,20 @@ def read():
 	# - Turn array into string using join()
 	
 	binaryString = ""
-	gaps = filter(lambda x: x[0] == 0, command)
-	for gap in gaps:
+	ones = filter(lambda x: x[0] == 0, command)
+	for one in ones:
 
-		if gap[1] < 1000:
+		if one[1] < 1000:
 			binaryString += "0"
 		else:
-			if gap[1] < 2000:
+			if one[1] < 2000:
 				binaryString += "1"
 
 	# Return our binary code if we have one (minus whitespace)
 	if binaryString.strip():
 		GPIO.output(16, GPIO.LOW)
-		return(binaryString)
+		# Because we're using Sony protocol that repeats, we only want the first 20 bits
+		return(binaryString[0:20])
 
 if __name__ == "__main__":
 	print(read())
