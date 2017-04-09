@@ -32,7 +32,7 @@ while True:
 
         # Receive the data in small chunks and retransmit it
         while True:
-            data = connection.recv(32)
+            data = connection.recv(128)
             if data:
                 print("Blast IR: " + data)
                 if blasterReady:
