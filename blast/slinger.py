@@ -75,7 +75,6 @@ class Sony():
         self.one_gap_duration = one_gap_duration # in microseconds, 1686 per specification
         self.zero_pulse_duration = zero_pulse_duration # in microseconds, 562 per specification
         self.zero_gap_duration = zero_gap_duration # in microseconds, 562 per specification
-        self.trailing_pulse = trailing_pulse # trailing 562 microseconds pulse, some remotes send it, some don't
         print("Sony protocol initialized")
 
     # Send AGC burst before transmission
@@ -84,28 +83,22 @@ class Sony():
         self.wave_generator.one(self.leading_pulse_duration)
         self.wave_generator.zero(self.leading_gap_duration)
 
-    # Trailing pulse is just a burst with the duration of standard pulse.
-    def send_trailing_pulse(self):
-        print("Sending trailing pulse")
-        self.wave_generator.one(self.one_pulse_duration)
-
     # This function is processing IR code. Leaves room for possible manipulation
     # of the code before processing it.
     def process_code(self, ircode):
-        if (self.leading_pulse_duration > 0) or (self.leading_gap_duration > 0):
-            self.send_agc()
-        for i in ircode:
-            if i == "0":
-                self.zero()
-            elif i == "1":
-                self.one()
-            else:
-                print("ERROR! Non-binary digit!")
-                return 1
-        if self.trailing_pulse == 1:
-            self.send_trailing_pulse()
+        for i in range(3):
+            if (self.leading_pulse_duration > 0) or (self.leading_gap_duration > 0):
+                self.send_agc()
+            for i in ircode:
+                if i == "0":
+                    self.zero()
+                elif i == "1":
+                    self.one()
+                else:
+                    print("ERROR! Non-binary digit!")
+                    return 1
+            self.zero(12000)
         return 0
-
     # Generate zero or one in NEC protocol
     # Zero is represented by a pulse and a gap of the same length
     def zero(self):
@@ -306,11 +299,7 @@ class IR():
         if clear != 0:
             print("Error in clearing wave!")
             return 1
-        if self.protocol == "Sony":
-            pulses = self.pigpio.gpioWaveAddGeneric( 3 * self.protocol.wave_generator.pulse_count, 3 * self.protocol.wave_generator.pulses)
-            print(3 * self.protocol.wave_generator.pulses)
-        else:
-            pulses = self.pigpio.gpioWaveAddGeneric(self.protocol.wave_generator.pulse_count, self.protocol.wave_generator.pulses)
+        pulses = self.pigpio.gpioWaveAddGeneric(self.protocol.wave_generator.pulse_count, self.protocol.wave_generator.pulses)
         if pulses < 0:
             print("Error in adding wave!")
             return 1
