@@ -49,6 +49,74 @@ class Wave_generator():
             else:
                 self.add_pulse(0, 1 << self.protocol.master.gpio_pin, off_duration)
 
+# Sony protocol class
+class Sony():
+    def __init__(self,
+                master,
+                frequency=40000,
+                duty_cycle=0.33,
+                leading_pulse_duration=2400,
+                leading_gap_duration=600,
+                one_pulse_duration = 1200,
+                one_gap_duration = 600,
+                zero_pulse_duration = 600,
+                zero_gap_duration = 600,
+                trailing_pulse = 1):
+        self.master = master
+        self.wave_generator = Wave_generator(self)
+        self.frequency = frequency # in Hz, 38000 per specification
+        self.duty_cycle = duty_cycle # duty cycle of high state pulse
+        # Durations of high pulse and low "gap".
+        # The NEC protocol defines pulse and gap lengths, but we can never expect
+        # that any given TV will follow the protocol specification.
+        self.leading_pulse_duration = leading_pulse_duration # in microseconds, 9000 per specification
+        self.leading_gap_duration = leading_gap_duration # in microseconds, 4500 per specification
+        self.one_pulse_duration = one_pulse_duration # in microseconds, 562 per specification
+        self.one_gap_duration = one_gap_duration # in microseconds, 1686 per specification
+        self.zero_pulse_duration = zero_pulse_duration # in microseconds, 562 per specification
+        self.zero_gap_duration = zero_gap_duration # in microseconds, 562 per specification
+        self.trailing_pulse = trailing_pulse # trailing 562 microseconds pulse, some remotes send it, some don't
+        print("Sony protocol initialized")
+
+    # Send AGC burst before transmission
+    def send_agc(self):
+        print("Sending AGC burst")
+        self.wave_generator.one(self.leading_pulse_duration)
+        self.wave_generator.zero(self.leading_gap_duration)
+
+    # Trailing pulse is just a burst with the duration of standard pulse.
+    def send_trailing_pulse(self):
+        print("Sending trailing pulse")
+        self.wave_generator.one(self.one_pulse_duration)
+
+    # This function is processing IR code. Leaves room for possible manipulation
+    # of the code before processing it.
+    def process_code(self, ircode):
+        if (self.leading_pulse_duration > 0) or (self.leading_gap_duration > 0):
+            self.send_agc()
+        for i in ircode:
+            if i == "0":
+                self.zero()
+            elif i == "1":
+                self.one()
+            else:
+                print("ERROR! Non-binary digit!")
+                return 1
+        if self.trailing_pulse == 1:
+            self.send_trailing_pulse()
+        return 0
+
+    # Generate zero or one in NEC protocol
+    # Zero is represented by a pulse and a gap of the same length
+    def zero(self):
+        self.wave_generator.one(self.zero_pulse_duration)
+        self.wave_generator.zero(self.zero_gap_duration)
+
+    # One is represented by a pulse and a gap three times longer than the pulse
+    def one(self):
+        self.wave_generator.one(self.one_pulse_duration)
+        self.wave_generator.zero(self.one_gap_duration)
+
 # NEC protocol class
 class NEC():
     def __init__(self,
@@ -265,9 +333,9 @@ class IR():
 # Provide the IR code to the send_code() method.
 # An example is given below.
 if __name__ == "__main__":
-    protocol = "NEC"
+    protocol = "Sony"
     gpio_pin = 23
     protocol_config = dict()
     ir = IR(gpio_pin, protocol, protocol_config)
-    ir.send_code("01001111010110000011000011001111")
+    ir.send_code("100111001011010011111001110010110100111110011100101101001111")
     print("Exiting IR")

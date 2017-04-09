@@ -5,7 +5,7 @@ import sys
 import slinger
 
 # Setup slinger
-slinger.protocol = "NEC"
+slinger.protocol = "Sony"
 slinger.gpio_pin = 23
 protocol_config = dict()        
 
