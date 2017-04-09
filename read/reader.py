@@ -83,7 +83,11 @@ def read():
 	if binaryString.strip():
 		GPIO.output(16, GPIO.LOW)
 		# Because we're using Sony protocol that repeats, we only want the first 20 bits
-		return(binaryString[0:20])
+		irCode = binaryString[0:20]
+		if len(irCode) == 20:
+			return irCode
+		else:
+			return false
 
 if __name__ == "__main__":
 	print(read())
