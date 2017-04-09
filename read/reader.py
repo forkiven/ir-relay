@@ -62,15 +62,15 @@ def read():
 		value = GPIO.input(INPUT_WIRE)
 	
 	#print "----------Start----------"
-	#for (val, pulse) in command:
-		#print val, pulse
+	for (val, pulse) in command:
+		print val, pulse
 
 	# - Only care about the gaps (when pulse is a 1) so we filter our command array. 
 	# - map (perform iterator function) so that if gap is greater than 1000, assume 1, else 0.
 	# - Turn array into string using join()
 	
 	binaryString = ""
-	gaps = filter(lambda x: x[0] == 1, command)
+	gaps = filter(lambda x: x[0] == 0, command)
 	for gap in gaps:
 
 		if gap[1] < 1000:
