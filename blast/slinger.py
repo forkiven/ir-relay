@@ -283,6 +283,8 @@ class IR():
         print("Initializing protocol")
         if protocol == "NEC":
             self.protocol = NEC(self, **protocol_config)
+        elif protocol == "Sony":
+            self.protocol = Sony(self, **protocol_config)            
         elif protocol == "RC-5":
             self.protocol = RC5(self, **protocol_config)
         elif protocol == "RAW":
