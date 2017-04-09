@@ -308,6 +308,7 @@ class IR():
             return 1
         if self.protocol == "Sony":
             pulses = self.pigpio.gpioWaveAddGeneric( 3 * self.protocol.wave_generator.pulse_count, 3 * self.protocol.wave_generator.pulses)
+            print(3 * self.protocol.wave_generator.pulses)
         else:
             pulses = self.pigpio.gpioWaveAddGeneric(self.protocol.wave_generator.pulse_count, self.protocol.wave_generator.pulses)
         if pulses < 0:
