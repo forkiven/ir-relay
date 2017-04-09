@@ -306,7 +306,10 @@ class IR():
         if clear != 0:
             print("Error in clearing wave!")
             return 1
-        pulses = self.pigpio.gpioWaveAddGeneric(self.protocol.wave_generator.pulse_count, self.protocol.wave_generator.pulses)
+        if self.protocol == "Sony":
+            pulses = self.pigpio.gpioWaveAddGeneric( 3 * self.protocol.wave_generator.pulse_count, 3 * self.protocol.wave_generator.pulses)
+        else:
+            pulses = self.pigpio.gpioWaveAddGeneric(self.protocol.wave_generator.pulse_count, self.protocol.wave_generator.pulses)
         if pulses < 0:
             print("Error in adding wave!")
             return 1
@@ -339,5 +342,5 @@ if __name__ == "__main__":
     gpio_pin = 23
     protocol_config = dict()
     ir = IR(gpio_pin, protocol, protocol_config)
-    ir.send_code("100111001011010011111001110010110100111110011100101101001111")
+    ir.send_code("10011100101101001111")
     print("Exiting IR")
