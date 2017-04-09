@@ -13,12 +13,6 @@ INPUT_WIRE = 12
 GPIO.setmode(GPIO.BOARD)
 GPIO.setup(INPUT_WIRE, GPIO.IN)
 
-# Control LED
-GPIO.setup(16, GPIO.OUT)
-GPIO.output(16, GPIO.LOW)
-sleep(0.2)
-GPIO.output(16, GPIO.HIGH)
-
 def read():
 	value = 1
 
@@ -81,7 +75,6 @@ def read():
 
 	# Return our binary code if we have one (minus whitespace)
 	if binaryString.strip():
-		GPIO.output(16, GPIO.LOW)
 		# Because we're using Sony protocol that repeats, we only want the first 20 bits
 		irCode = binaryString[0:20]
 		if len(irCode) == 20:
@@ -90,4 +83,11 @@ def read():
 			return False
 
 if __name__ == "__main__":
-	print(read())
+	# Control LED
+	GPIO.setup(16, GPIO.OUT)
+	GPIO.output(16, GPIO.LOW)
+	sleep(0.2)
+	GPIO.output(16, GPIO.HIGH)
+	if read():
+		print(read())
+		GPIO.output(16, GPIO.LOW)
