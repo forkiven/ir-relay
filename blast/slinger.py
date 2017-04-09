@@ -61,7 +61,7 @@ class Sony():
                 one_gap_duration = 600,
                 zero_pulse_duration = 600,
                 zero_gap_duration = 600,
-                trailing_pulse = 1):
+                trailing_pulse = 0):
         self.master = master
         self.wave_generator = Wave_generator(self)
         self.frequency = frequency # in Hz, 38000 per specification
