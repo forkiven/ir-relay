@@ -97,7 +97,7 @@ class Sony():
                 else:
                     print("ERROR! Non-binary digit!")
                     return 1
-            self.zero(12000)
+            self.wave_generator.zero(12000)
         return 0
     # Generate zero or one in NEC protocol
     # Zero is represented by a pulse and a gap of the same length
