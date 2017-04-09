@@ -87,7 +87,7 @@ def read():
 		if len(irCode) == 20:
 			return irCode
 		else:
-			return false
+			return False
 
 if __name__ == "__main__":
 	print(read())
