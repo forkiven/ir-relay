@@ -56,28 +56,27 @@ def read():
 		value = GPIO.input(INPUT_WIRE)
 	
 	#print "----------Start----------"
-	for (val, pulse) in command:
-		print val, pulse
-
-	# - Only care about the gaps (when pulse is a 1) so we filter our command array. 
-	# - map (perform iterator function) so that if gap is greater than 1000, assume 1, else 0.
-	# - Turn array into string using join()
+	#for (val, pulse) in command:
+		#print val, pulse
 	
 	binaryString = ""
-	ones = filter(lambda x: x[0] == 0, command)
-	for one in ones:
+	pulses = filter(lambda x: x[0] == 0, command)
+	for pulse in pulses:
 
-		if one[1] < 1000:
+		pulseDuration = pulse[1]
+
+		# Sony Protocol: 1 = pulse 1200 gap 600, 0 = pulse 600 gap 600
+		if pulseDuration < 1000:
 			binaryString += "0"
 		else:
-			if one[1] < 2000:
-				binaryString += "1"
+			binaryString += "1"
 
 	# Return our binary code if we have one (minus whitespace)
 	if binaryString.strip():
-		# Because we're using Sony protocol that repeats, we only want the first 20 bits
+		# Sony protocol that repeats - Only need first 20 bits
 		irCode = binaryString[0:20]
 		if len(irCode) == 20:
+			# Anything less than 20 bits, assume white ir signal
 			return irCode
 		else:
 			return False
