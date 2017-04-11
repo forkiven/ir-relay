@@ -41,7 +41,7 @@ while True:
                 timeReceived = datetime.now()
                 ir = slinger.IR(slinger.gpio_pin, slinger.protocol, protocol_config)
                 ir.send_code(data)
-                #print("Time taken to blast: " + str((datetime.now() - timeReceived).microseconds))
+                print("Time taken to blast: " + str((datetime.now() - timeReceived).microseconds))
                 connection.send("pong")
             else:
                 print >>sys.stderr, 'no more data from', client_address
