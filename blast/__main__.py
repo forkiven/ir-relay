@@ -37,7 +37,7 @@ while True:
         while True:
             data = connection.recv(bitLength)
             if data:
-                #print("Received code: " + data)
+                print("Received code: " + data)
                 timeReceived = datetime.now()
                 ir = slinger.IR(slinger.gpio_pin, slinger.protocol, protocol_config)
                 ir.send_code(data)
