@@ -75,11 +75,11 @@ class Sony():
         self.one_gap_duration = one_gap_duration # in microseconds, 1686 per specification
         self.zero_pulse_duration = zero_pulse_duration # in microseconds, 562 per specification
         self.zero_gap_duration = zero_gap_duration # in microseconds, 562 per specification
-        print("Sony protocol initialized")
+        #print("Sony protocol initialized")
 
     # Send AGC burst before transmission
     def send_agc(self):
-        print("Sending AGC burst")
+        #print("Sending AGC burst")
         self.wave_generator.one(self.leading_pulse_duration)
         self.wave_generator.zero(self.leading_gap_duration)
 
@@ -137,17 +137,17 @@ class NEC():
         self.zero_pulse_duration = zero_pulse_duration # in microseconds, 562 per specification
         self.zero_gap_duration = zero_gap_duration # in microseconds, 562 per specification
         self.trailing_pulse = trailing_pulse # trailing 562 microseconds pulse, some remotes send it, some don't
-        print("NEC protocol initialized")
+        #print("NEC protocol initialized")
 
     # Send AGC burst before transmission
     def send_agc(self):
-        print("Sending AGC burst")
+        #print("Sending AGC burst")
         self.wave_generator.one(self.leading_pulse_duration)
         self.wave_generator.zero(self.leading_gap_duration)
 
     # Trailing pulse is just a burst with the duration of standard pulse.
     def send_trailing_pulse(self):
-        print("Sending trailing pulse")
+        #print("Sending trailing pulse")
         self.wave_generator.one(self.one_pulse_duration)
 
     # This function is processing IR code. Leaves room for possible manipulation
@@ -264,16 +264,16 @@ class RAW():
 
 class IR():
     def __init__(self, gpio_pin, protocol, protocol_config):
-        print("Starting IR")
-        print("Loading libpigpio.so")
+        #print("Starting IR")
+        #print("Loading libpigpio.so")
         self.pigpio = ctypes.CDLL('libpigpio.so')
-        print("Initializing pigpio")
+        #print("Initializing pigpio")
         PI_OUTPUT = 1 # from pigpio.h
         self.pigpio.gpioInitialise()
         self.gpio_pin = gpio_pin
-        print("Configuring pin %d as output" % self.gpio_pin)
+        #print("Configuring pin %d as output" % self.gpio_pin)
         self.pigpio.gpioSetMode(self.gpio_pin, PI_OUTPUT) # pin 17 is used in LIRC by default
-        print("Initializing protocol")
+        #print("Initializing protocol")
         if protocol == "NEC":
             self.protocol = NEC(self, **protocol_config)
         elif protocol == "Sony":
@@ -285,12 +285,12 @@ class IR():
         else:
             print("Protocol not specified! Exiting...")
             return 1
-        print("IR ready")
+        #print("IR ready")
 
     # send_code takes care of sending the processed IR code to pigpio.
     # IR code itself is processed and converted to pigpio structs by protocol's classes.
     def send_code(self, ircode):
-        print("Processing IR code: %s" % ircode)
+        #print("Processing IR code: %s" % ircode)
         code = self.protocol.process_code(ircode)
         if code != 0:
             print("Error in processing IR code!")
@@ -306,10 +306,10 @@ class IR():
         wave_id = self.pigpio.gpioWaveCreate()
         # Unlike the C implementation, in Python the wave_id seems to always be 0.
         if wave_id >= 0:
-            print("Sending wave...")
+            #print("Sending wave...")
             result = self.pigpio.gpioWaveTxSend(wave_id, 0)
             if result >= 0:
-                print("Success! (result: %d)" % result)
+                #print("Success! (result: %d)" % result)
             else:
                 print("Error! (result: %d)" % result)
                 return 1
@@ -318,9 +318,9 @@ class IR():
             return 1
         while self.pigpio.gpioWaveTxBusy():
             time.sleep(0.1)
-        print("Deleting wave")
+        #print("Deleting wave")
         self.pigpio.gpioWaveDelete(wave_id)
-        print("Terminating pigpio")
+        #print("Terminating pigpio")
         self.pigpio.gpioTerminate()
 
 # Simply define the GPIO pin, protocol (NEC, RC-5 or RAW) and

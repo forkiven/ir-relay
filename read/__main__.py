@@ -52,12 +52,12 @@ def main():
 			GPIO.output(16, GPIO.LOW)
 			time.sleep(0.1)
 			# Send to server
-			print('sent: ' + binaryCode)
+			#print('sent: ' + binaryCode)
 			s.send(binaryCode)
 			# Wait for response from server
 			while True:
 				serverResponse = s.recv(12)
-				print(serverResponse)
+				#print(serverResponse)
 				if serverResponse:
 					break
 				else:
