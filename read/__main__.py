@@ -54,6 +54,10 @@ def main():
 			# Send to server
 			print('sent: ' + binaryCode)
 			s.send(binaryCode)
+			# Wait for response from server
+			while True:
+				serverResponse = s.recv(12)
+				print(serverResponse)
 			# Turn LED back on - ready for new signal
 			GPIO.output(16, GPIO.HIGH)
 
