@@ -69,7 +69,9 @@ def read():
 		if pulseDuration < 1000:
 			binaryString += "0"
 		else:
-			binaryString += "1"
+			# Ignore sony AGC (initial pulse) with 2400 duration
+			if pulseDuration < 2000:
+				binaryString += "1"			
 
 	# Return our binary code if we have one (minus whitespace)
 	if binaryString.strip():
