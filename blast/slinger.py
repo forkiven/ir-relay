@@ -223,6 +223,8 @@ class RC5():
         self.wave_generator.zero(self.one_duration)
         self.wave_generator.one(self.one_duration)
 
+
+
 # RAW IR ones and zeroes. Specify length for one and zero and simply bitbang the GPIO.
 # The default values are valid for one tested remote which didn't fit in NEC or RC-5 specifications.
 # It can also be used in case you don't want to bother with deciphering raw bytes from IR receiver:
