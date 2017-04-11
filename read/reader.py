@@ -87,6 +87,5 @@ if __name__ == "__main__":
 	GPIO.output(16, GPIO.LOW)
 	sleep(0.2)
 	GPIO.output(16, GPIO.HIGH)
-	if read():
-		print(read())
-		GPIO.output(16, GPIO.LOW)
+	print(read())
+	GPIO.output(16, GPIO.LOW)
