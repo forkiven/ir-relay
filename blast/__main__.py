@@ -42,12 +42,7 @@ while True:
                 ir = slinger.IR(slinger.gpio_pin, slinger.protocol, protocol_config)
                 ir.send_code(data)
                 print("Time taken to blast: " + str((datetime.now() - timeReceived).microseconds))
-                # if blasterReady:
-                #     blasterReady = False
-                #     ir = slinger.IR(slinger.gpio_pin, slinger.protocol, protocol_config)
-                #     ir.send_code(data)
-                #     print("Took " + (datetime.now() - timeReceived).microseconds + " to send signal")
-                #     blasterReady = True
+                connection.send("pong")
             else:
                 print >>sys.stderr, 'no more data from', client_address
                 break
