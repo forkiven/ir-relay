@@ -3,11 +3,14 @@
 import socket
 import sys
 import slinger
+from datetime import datetime
 
 # Setup slinger
 slinger.protocol = "Sony"
 slinger.gpio_pin = 23
-protocol_config = dict()        
+protocol_config = dict()
+# Sony Protocol Bit Length
+bitLength = 20        
 
 # Create a TCP/IP socket
 sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -32,14 +35,19 @@ while True:
 
         # Receive the data in small chunks and retransmit it
         while True:
-            data = connection.recv(128)
+            data = connection.recv(bitLength)
             if data:
-                print("Blast IR: " + data)
-                if blasterReady:
-                    blasterReady = False
-                    ir = slinger.IR(slinger.gpio_pin, slinger.protocol, protocol_config)
-                    ir.send_code(data)
-                    blasterReady = True
+                print("Received code: " + data)
+                timeReceived = datetime.now()
+                ir = slinger.IR(slinger.gpio_pin, slinger.protocol, protocol_config)
+                ir.send_code(data)
+                print("Time taken to blast: " + (datetime.now() - timeReceived).microseconds)
+                # if blasterReady:
+                #     blasterReady = False
+                #     ir = slinger.IR(slinger.gpio_pin, slinger.protocol, protocol_config)
+                #     ir.send_code(data)
+                #     print("Took " + (datetime.now() - timeReceived).microseconds + " to send signal")
+                #     blasterReady = True
             else:
                 print >>sys.stderr, 'no more data from', client_address
                 break
@@ -47,4 +55,3 @@ while True:
     finally:
         # Clean up the connection
         connection.close()
-
