@@ -308,9 +308,13 @@ class IR():
         if wave_id >= 0:
             #print("Sending wave...")
             result = self.pigpio.gpioWaveTxSend(wave_id, 0)
-            if result >= 0:
-                #print("Success! (result: %d)" % result)
-            else:
+            # if result >= 0:
+            #     #print("Success! (result: %d)" % result)
+            # else:
+            #     print("Error! (result: %d)" % result)
+            #     return 1
+            
+            if result < 0:
                 print("Error! (result: %d)" % result)
                 return 1
         else:
