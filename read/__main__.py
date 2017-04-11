@@ -62,7 +62,7 @@ def main():
 					break
 				else:
 					# Didn't get response, wait 1.5 seconds and try to reconnect
-					time.sleep(1.5)
+					print("No response, reconnecting to socket...")
 					closeSocket()
 					main()
 
