@@ -58,6 +58,14 @@ def main():
 			while True:
 				serverResponse = s.recv(12)
 				print(serverResponse)
+				if serverResponse:
+					break
+				else:
+					# Didn't get response, wait 1.5 seconds and try to reconnect
+					time.sleep(1.5)
+					closeSocket()
+					main()
+
 			# Turn LED back on - ready for new signal
 			GPIO.output(16, GPIO.HIGH)
 
