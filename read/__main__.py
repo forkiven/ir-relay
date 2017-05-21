@@ -19,13 +19,9 @@ def main():
 	# when started
 	start_time = time.time()
 
-	print('Fetching proxy address...')
-	# get weaver address
-	proxyAddress = weaver.fetchProxyAddress().split('://')[1].split(':')
-	TCP_IP = proxyAddress[0]
-	TCP_PORT = int(proxyAddress[1])
-	# Try to connect to server
-	print('Connecting to socket @ ' + proxyAddress[0] + ':' + proxyAddress[1])
+	TCP_IP = "irblaster.ddns.net"
+	TCP_PORT = 6666
+
 	s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 	s.connect((TCP_IP, TCP_PORT))
 	print('Waiting for signal...')
