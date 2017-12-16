@@ -55,8 +55,8 @@ def main():
 			irc.send(binaryCode)
 			print('SIGNAL SENT: ' + binaryCode)
 
-			# Get response from server
-			serverResponse = irc.recv(12)
+			# Get response from server. "PONG" = 4 bytes
+			serverResponse = irc.recv(4)
 			if serverResponse:
 				print(serverResponse)		
 			else:

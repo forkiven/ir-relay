@@ -9,7 +9,9 @@ from datetime import datetime
 slinger.protocol = "Sony"
 slinger.gpio_pin = 23
 protocol_config = dict()
-# Sony Protocol Bit Length
+# Sony Protocol bit length. This is transmitted 
+# over in a string using UTF-8 (default) so
+# that's 20 characters = 20 bytes.
 bitLength = 20        
 
 # Create a TCP/IP socket
@@ -44,7 +46,7 @@ while True:
                 ir = slinger.IR(slinger.gpio_pin, slinger.protocol, protocol_config)
                 ir.send_code(data)
                 print("Time taken to blast: " + str((datetime.now() - timeReceived).microseconds))
-                connection.send("pong")
+                connection.send("PONG")
             else:
                 print >>sys.stderr, 'no more data from', client_address
                 break
